@@ -44,6 +44,8 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder stringBuilder = new StringBuilder(" title:");
+        stringBuilder.append(title);
+        return stringBuilder.toString();
     }
 }

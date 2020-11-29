@@ -25,15 +25,15 @@ import reactor.util.context.Context;
 import reactor.util.retry.Retry;
 
 @Component
-public class ApiWebClient {
+public class RecipeFileClient {
 
     private final int readTimeoutMillis = 30000;
     private final int tcpConnectTimeoutMillis = 30000;
-    private static final Logger logger = LoggerFactory.getLogger(ApiWebClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(RecipeFileClient.class);
     private final WebClient webClient;
 
     @Autowired
-    ApiWebClient() {
+    RecipeFileClient() {
         this.webClient = init();
     }
 

@@ -1,62 +1,53 @@
 package com.sample.mnf.demo.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sample.mnf.demo.exception.NotFoundException;
 import com.sample.mnf.demo.model.Ingredient;
 import com.sample.mnf.demo.model.Recipe;
 import com.sample.mnf.demo.model.RecipeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- * Class responsible for handling any logic related to recipes
- * Used by both controller and unit tests
- */
 @Service
 public class RecipeService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private static final String RECIPES_ERROR_MESSAGE = "Missing recipes";
+    private final FileService fileService;
+
+    @Autowired
+    public RecipeService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
     /**
-     * Converts json file into bean object
-     * Recipe json file in this case has static values
-     *
+     * Retrieves available recipes based from ingredients
      */
-    public List<Recipe> convertJsonToBean(HashMap<String, Ingredient> ingredientHashMap) {
-        if (ingredientHashMap == null) return null;
+    public ArrayDeque<RecipeResponse> getRecipes(HashMap<String, Ingredient> ingredientHashMap) {
+        if (ingredientHashMap == null) {
+            return null;
+        }
 
-        logger.info("Start converting JSON recipes to bean...");
-
-        ObjectMapper mapper = new ObjectMapper();
         List<Recipe> consolidatedRecipeList = new ArrayList<>();
+        ArrayList<LinkedHashMap> recipes = fileService.getRecipesFromLocal();
 
-        try (InputStream inputStream = TypeReference.class.getResourceAsStream("/recipes.json")) {
-            LinkedHashMap linkedHashMap = mapper.readValue(inputStream, LinkedHashMap.class);
-            ArrayList<LinkedHashMap> recipes = (ArrayList) linkedHashMap.get("recipes");
-
-            for (LinkedHashMap recipeLinkedHashMap: recipes) {
-                Recipe recipe = createRecipe(recipeLinkedHashMap, ingredientHashMap);
-                consolidatedRecipeList.add(recipe);
-            }
-
-        } catch (IOException e) {
-            logger.error("Error while parsing " + e.getMessage());
+        for (LinkedHashMap recipeLinkedHashMap : recipes) {
+            Recipe recipe = createRecipe(recipeLinkedHashMap, ingredientHashMap);
+            consolidatedRecipeList.add(recipe);
         }
 
         if (consolidatedRecipeList == null || consolidatedRecipeList.isEmpty()) {
             logger.error(RECIPES_ERROR_MESSAGE);
-            throw new com.rezdy.recipes.exception.NotFoundException(RECIPES_ERROR_MESSAGE);
+            throw new NotFoundException(RECIPES_ERROR_MESSAGE);
         }
         logger.info("Finish converting JSON recipes to bean...");
 
-        return consolidatedRecipeList;
+        return filterResponseAndSort(consolidatedRecipeList);
+
     }
 
     /**
@@ -74,7 +65,9 @@ public class RecipeService {
 
         for (String strIngredient : ingredients) {
             Ingredient ingredient = ingredientHashMap.get(strIngredient);
-            if (ingredient == null) continue;
+            if (ingredient == null) {
+                continue;
+            }
 
             if (now.isAfter(ingredient.getUseBy())) {
                 recipe.getExpiredIngredients().add(ingredient);
@@ -88,16 +81,14 @@ public class RecipeService {
     }
 
     /**
-     * Used by both controller and unit tests
-     *
      * 1. Remove from the list any recipe with at least one expired ingredient
-     * 2. Add to the bottom of the JSON response object the recipe where an ingredient is past its ​best-before​ date AND is still within its date
-     * 3. Add to the top of the JSON response object the recipe where an ingredient is NOT past its ​best-before​ date AND is still within its date
+     * 2. Add to the bottom the recipe where an ingredient is past its best-before date AND is still within its date
+     * 3. Add to the top the recipe where an ingredient is NOT past its best-before date AND is still within its date
      */
-    public ArrayDeque<RecipeResponse> filterResponseAndSort(List<Recipe> recipeList) {
+    ArrayDeque<RecipeResponse> filterResponseAndSort(List<Recipe> recipeList) {
         ArrayDeque<RecipeResponse> arrayDeque = new ArrayDeque<>();
 
-        for (Recipe recipe: recipeList) {
+        for (Recipe recipe : recipeList) {
             // Collections.disjoint returns true if the two specified collections have no elements in common
             // Remove from the list any recipe with at least one expired ingredient
             // The list of expired ingredients has been generated during conversion of Json to Bean
@@ -121,12 +112,6 @@ public class RecipeService {
         return arrayDeque;
     }
 
-    /**
-     *
-     * @param recipeBean
-     *
-     * @return
-     */
     private RecipeResponse createResponse(Recipe recipeBean) {
         RecipeResponse recipeResponse = new RecipeResponse();
         recipeResponse.setTitle(recipeBean.getTitle());

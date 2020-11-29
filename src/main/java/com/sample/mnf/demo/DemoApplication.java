@@ -1,6 +1,6 @@
 package com.sample.mnf.demo;
 
-import com.sample.mnf.demo.service.DummyDataService;
+import com.sample.mnf.demo.service.DataService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +14,9 @@ public class DemoApplication {
     }
 
     @Bean
-    CommandLineRunner runner(DummyDataService dummyDataService) {
+    CommandLineRunner runner(DataService dataService) {
         return args -> {
-            dummyDataService.createJsonTestFile("ingredients.json");
+            dataService.createJsonTestFile("ingredients.json");
         };
     }
 }

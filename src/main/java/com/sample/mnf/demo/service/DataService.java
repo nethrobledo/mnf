@@ -20,13 +20,9 @@ import java.util.List;
 
 /**
  * Data service with the main function of populating test data
- * Both used by server and unit testing
- *
- * NOTE:It is not clear to me if there is a need for the ingredients and recipes to be dynamic.
- * I have assumed they are static except for the best-before and use-by dates.
  */
 @Service
-public class DummyDataService {
+public class DataService {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private Logger logger = LoggerFactory.getLogger(this.getClass());

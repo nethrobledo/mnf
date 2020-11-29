@@ -1,4 +1,4 @@
-package com.rezdy.recipes.exception;
+package com.sample.mnf.demo.exception;
 
 import java.util.Date;
 

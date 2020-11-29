@@ -34,6 +34,9 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder stringBuilder = new StringBuilder(" title:");
+        stringBuilder.append(title).append(" bestBefore:").append(bestBefore);
+        stringBuilder.append(" useBy:").append(useBy);
+        return stringBuilder.toString();
     }
 }
