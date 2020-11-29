@@ -7,6 +7,7 @@ import com.sample.mnf.demo.model.RecipeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -69,10 +70,11 @@ public class RecipeService {
                 continue;
             }
 
-            if (now.isAfter(ingredient.getUseBy())) {
+            if (ingredient.getUseBy() != null && now.isAfter(ingredient.getUseBy())) {
                 recipe.getExpiredIngredients().add(ingredient);
             }
-            if (now.isAfter(ingredient.getBestBefore())) {
+
+            if (ingredient.getBestBefore() != null && now.isAfter(ingredient.getBestBefore())) {
                 recipe.getBestBeforeIngredients().add(ingredient);
             }
             recipe.getIngredients().add(ingredient);
