@@ -61,7 +61,7 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, 0, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 5);
+        assertEquals(arrayDeque.size(), 4);
     }
 
     @Test
@@ -95,9 +95,9 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, -1, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 5);
+        assertEquals(arrayDeque.size(), 4);
 
         RecipeResponse last = arrayDeque.getLast();
-        assertEquals(last.getTitle(), "Hotdog");
+        assertEquals(last.getTitle(), "Ham and Cheese Toastie");
     }
 }

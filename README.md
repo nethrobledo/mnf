@@ -25,6 +25,4 @@ generate the ingredients.json file during startup
 ## Prepopulated test data
 * recipes.json is static data based 
 * ingredients.json is created on-the-fly during server startup with static/dynamic data. Static data for the list of available ingredients and dynamic best-before and use-by dates
-* Ham, Bacon and Sausage have best-before and use-by dates of (date today minus 3 days)
-* Mushroom, Lettuce, Tomato, Cucumber, Beetroot, Spinach, Salad Dressing have best-before and use-by dates of (date today)
-* The rest of the ingredients have best-before and use-by dates of (date today plus 10 days)
+* Ham and Cheese Toastie and Omelette will return valid ingredients, the rest have expired ingredients

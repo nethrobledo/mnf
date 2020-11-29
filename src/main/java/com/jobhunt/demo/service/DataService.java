@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Data service with the main function of populating test data
+ * Populates dummy test data during startup
  */
 @Service
 public class DataService {
@@ -29,31 +29,33 @@ public class DataService {
 
     private static final List<String> meatIngredients = new ArrayList<>();
     private static final List<String> saladIngredients = new ArrayList<>();
-    private static final List<String> otherIngredients = new ArrayList<>();
+    private static final List<String> expiringIn3Days = new ArrayList<>();
+    private static final List<String> expiredYesterday = new ArrayList<>();
 
     static {
-        meatIngredients.add("Ham");
-        meatIngredients.add("Bacon");
-        meatIngredients.add("Sausage");
+        expiringIn3Days.add("Ham");
+        expiringIn3Days.add("Cheese");
+        expiringIn3Days.add("Bread");
+        expiringIn3Days.add("Butter");
+        expiringIn3Days.add("Eggs");
+        expiringIn3Days.add("Mushroom");
+        expiringIn3Days.add("Milk");
+        expiringIn3Days.add("Salt");
+        expiringIn3Days.add("Pepper");
+        expiringIn3Days.add("Spinach");
 
-        saladIngredients.add("Mushroom");
+        expiredYesterday.add("Hotdog Bun");
+        expiredYesterday.add("Sausage");
+        expiredYesterday.add("Ketchup");
+        expiredYesterday.add("Mustard");
+
+        meatIngredients.add("Bacon");
         saladIngredients.add("Lettuce");
         saladIngredients.add("Tomato");
         saladIngredients.add("Cucumber");
         saladIngredients.add("Beetroot");
-        saladIngredients.add("Spinach");
         saladIngredients.add("Salad Dressing");
 
-        otherIngredients.add("Eggs");
-        otherIngredients.add("Cheese");
-        otherIngredients.add("Bread");
-        otherIngredients.add("Butter");
-        otherIngredients.add("Hotdog Bun");
-        otherIngredients.add("Ketchup");
-        otherIngredients.add("Mustard");
-        otherIngredients.add("Milk");
-        otherIngredients.add("Salt");
-        otherIngredients.add("Pepper");
     }
     /**
      * Called from the server during startup to create dynamic json file depending on current date
@@ -68,22 +70,26 @@ public class DataService {
 
         try (FileWriter fileWriter = new FileWriter(fileName)){
             List<DummyIngredient> ingredientsList = new ArrayList<>();
-            DummyIngredient dummyIngredient;
 
-            for (String ingredient:meatIngredients) {
-                dummyIngredient = createDummyIngredient(ingredient, -3, -3);
+            expiringIn3Days.forEach(ingredient -> {
+                DummyIngredient dummyIngredient = createDummyIngredient(ingredient, 3, 3);
                 ingredientsList.add(dummyIngredient);
-            }
+            });
 
-            for (String ingredient:saladIngredients) {
-                dummyIngredient = createDummyIngredient(ingredient, 0, 0);
+            expiredYesterday.forEach(ingredient -> {
+                DummyIngredient dummyIngredient = createDummyIngredient(ingredient, -1, -1);
                 ingredientsList.add(dummyIngredient);
-            }
+            });
 
-            for (String ingredient:otherIngredients) {
-                dummyIngredient = createDummyIngredient(ingredient, 10, 10);
+            meatIngredients.forEach(ingredient -> {
+                DummyIngredient dummyIngredient = createDummyIngredient(ingredient, -3, -3);
                 ingredientsList.add(dummyIngredient);
-            }
+            });
+
+            saladIngredients.forEach(ingredient -> {
+                DummyIngredient dummyIngredient = createDummyIngredient(ingredient, 0, 0);
+                ingredientsList.add(dummyIngredient);
+            });
 
             HashMap<String, List<DummyIngredient>> hashMap = new HashMap<>();
             hashMap.put("ingredients", ingredientsList);
@@ -128,10 +134,12 @@ public class DataService {
 
         try (FileWriter fileWriter = new FileWriter(fileName)){
             List<DummyIngredient> ingredientsList = new ArrayList<>();
-            for (String ingredient:ingredients) {
+
+            ingredients.forEach(ingredient -> {
                 DummyIngredient dummyIngredient = createDummyIngredient(ingredient, bestBeforeDays, useByDays);
                 ingredientsList.add(dummyIngredient);
-            }
+            });
+
             HashMap<String, List<DummyIngredient>> hashMap = new HashMap<>();
             hashMap.put("ingredients", ingredientsList);
             gson.toJson(hashMap, fileWriter);
