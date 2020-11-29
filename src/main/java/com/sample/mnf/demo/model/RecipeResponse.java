@@ -1,4 +1,4 @@
-package com.rezdy.recipes.dto;
+package com.sample.mnf.demo.model;
 
 import java.util.ArrayList;
 import java.util.List;

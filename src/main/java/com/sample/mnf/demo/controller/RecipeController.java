@@ -1,9 +1,9 @@
 package com.sample.mnf.demo.controller;
 
-import com.rezdy.recipes.dto.RecipeResponse;
 import com.rezdy.recipes.exception.NotFoundException;
 import com.sample.mnf.demo.model.Ingredient;
 import com.sample.mnf.demo.model.Recipe;
+import com.sample.mnf.demo.model.RecipeResponse;
 import com.sample.mnf.demo.service.IngredientService;
 import com.sample.mnf.demo.service.RecipeService;
 import java.util.HashMap;

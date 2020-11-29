@@ -1,7 +1,10 @@
 package com.sample.mnf.demo;
 
+import com.sample.mnf.demo.service.DummyDataService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -10,4 +13,10 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
+    @Bean
+    CommandLineRunner runner(DummyDataService dummyDataService) {
+        return args -> {
+            dummyDataService.createJsonTestFile("ingredients.json");
+        };
+    }
 }

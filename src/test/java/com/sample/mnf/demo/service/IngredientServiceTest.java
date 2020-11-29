@@ -1,19 +1,19 @@
 package com.sample.mnf.demo.service;
 
-import com.rezdy.recipes.dto.RecipeResponse;
-
 import com.sample.mnf.demo.model.Ingredient;
 import com.sample.mnf.demo.model.Recipe;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.sample.mnf.demo.model.RecipeResponse;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@Tag("unit")
+@ExtendWith(MockitoExtension.class)
 public class IngredientServiceTest {
 
     @InjectMocks
