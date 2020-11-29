@@ -1,13 +1,14 @@
-package com.sample.mnf.demo.controller;
+package com.jobhunt.demo.controller;
 
 import static org.junit.Assert.assertEquals;
 
-import com.sample.mnf.demo.client.RecipeFileClient;
-import com.sample.mnf.demo.model.RecipeResponse;
-import com.sample.mnf.demo.service.DataService;
-import com.sample.mnf.demo.service.FileService;
-import com.sample.mnf.demo.service.IngredientService;
-import com.sample.mnf.demo.service.RecipeService;
+
+import com.jobhunt.demo.client.RecipeFileClient;
+import com.jobhunt.demo.model.RecipeResponse;
+import com.jobhunt.demo.service.DataService;
+import com.jobhunt.demo.service.FileService;
+import com.jobhunt.demo.service.RecipeService;
+import com.jobhunt.demo.service.IngredientService;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 

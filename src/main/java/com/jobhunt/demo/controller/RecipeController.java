@@ -1,11 +1,11 @@
-package com.sample.mnf.demo.controller;
+package com.jobhunt.demo.controller;
 
-import com.sample.mnf.demo.exception.NotFoundException;
-import com.sample.mnf.demo.model.Ingredient;
-import com.sample.mnf.demo.model.RecipeResponse;
-import com.sample.mnf.demo.service.FileService;
-import com.sample.mnf.demo.service.IngredientService;
-import com.sample.mnf.demo.service.RecipeService;
+import com.jobhunt.demo.exception.NotFoundException;
+import com.jobhunt.demo.model.Ingredient;
+import com.jobhunt.demo.model.RecipeResponse;
+import com.jobhunt.demo.service.FileService;
+import com.jobhunt.demo.service.RecipeService;
+import com.jobhunt.demo.service.IngredientService;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

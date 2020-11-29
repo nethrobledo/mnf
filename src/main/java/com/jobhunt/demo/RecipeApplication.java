@@ -1,6 +1,6 @@
-package com.sample.mnf.demo;
+package com.jobhunt.demo;
 
-import com.sample.mnf.demo.service.DataService;
+import com.jobhunt.demo.service.DataService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

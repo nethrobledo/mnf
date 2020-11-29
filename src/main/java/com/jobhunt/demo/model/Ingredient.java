@@ -1,4 +1,4 @@
-package com.sample.mnf.demo.model;
+package com.jobhunt.demo.model;
 
 import java.time.LocalDate;
 

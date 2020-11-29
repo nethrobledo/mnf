@@ -1,6 +1,6 @@
-package com.sample.mnf.demo.client;
+package com.jobhunt.demo.client;
 
-import com.sample.mnf.demo.model.Post;
+import com.jobhunt.demo.model.Post;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.netty.handler.timeout.ReadTimeoutHandler;

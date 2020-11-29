@@ -8,10 +8,10 @@
         <version>2.3.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.sample.mnf</groupId>
-    <artifactId>mnf</artifactId>
+    <groupId>com.jobhunt.demo</groupId>
+    <artifactId>recipe</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <name>recipe</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

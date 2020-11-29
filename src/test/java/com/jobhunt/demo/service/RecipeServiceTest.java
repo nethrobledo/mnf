@@ -1,11 +1,12 @@
-package com.sample.mnf.demo.service;
+package com.jobhunt.demo.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.sample.mnf.demo.exception.NotFoundException;
-import com.sample.mnf.demo.model.Ingredient;
-import com.sample.mnf.demo.model.Recipe;
+
+import com.jobhunt.demo.exception.NotFoundException;
+import com.jobhunt.demo.model.Ingredient;
+import com.jobhunt.demo.model.Recipe;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;

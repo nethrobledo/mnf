@@ -1,6 +1,6 @@
-package com.sample.mnf.demo.service;
+package com.jobhunt.demo.service;
 
-import com.sample.mnf.demo.model.Ingredient;
+import com.jobhunt.demo.model.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

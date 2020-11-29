@@ -1,13 +1,12 @@
-package com.sample.mnf.demo.service;
+package com.jobhunt.demo.service;
 
-import com.sample.mnf.demo.exception.NotFoundException;
-import com.sample.mnf.demo.model.Ingredient;
-import com.sample.mnf.demo.model.Recipe;
-import com.sample.mnf.demo.model.RecipeResponse;
+import com.jobhunt.demo.model.Recipe;
+import com.jobhunt.demo.model.RecipeResponse;
+import com.jobhunt.demo.exception.NotFoundException;
+import com.jobhunt.demo.model.Ingredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

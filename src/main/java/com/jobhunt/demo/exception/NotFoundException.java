@@ -1,4 +1,4 @@
-package com.sample.mnf.demo.exception;
+package com.jobhunt.demo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

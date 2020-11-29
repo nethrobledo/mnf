@@ -1,9 +1,9 @@
-package com.sample.mnf.demo.service;
+package com.jobhunt.demo.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sample.mnf.demo.client.RecipeFileClient;
-import com.sample.mnf.demo.model.Post;
+import com.jobhunt.demo.client.RecipeFileClient;
+import com.jobhunt.demo.model.Post;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
