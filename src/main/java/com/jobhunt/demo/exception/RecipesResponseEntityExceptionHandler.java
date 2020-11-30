@@ -18,6 +18,7 @@ public class RecipesResponseEntityExceptionHandler extends ResponseEntityExcepti
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
                 request.getDescription(false));
+        // TODO::centralised logging and monitoring including correlation id
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -25,6 +26,7 @@ public class RecipesResponseEntityExceptionHandler extends ResponseEntityExcepti
     public final ResponseEntity<Object> handleUserNotFoundException(NotFoundException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
                 request.getDescription(false));
+        // TODO::centralised logging and monitoring including correlation id
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 

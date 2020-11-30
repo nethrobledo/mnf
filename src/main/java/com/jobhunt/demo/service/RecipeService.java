@@ -69,11 +69,13 @@ public class RecipeService {
                 continue;
             }
 
-            if (ingredient.getUseBy() != null && now.isAfter(ingredient.getUseBy())) {
+            if (ingredient.getUseBy() != null && (now.isEqual(ingredient.getUseBy())
+                    || now.isAfter(ingredient.getUseBy()))) {
                 recipe.getExpiredIngredients().add(ingredient);
             }
 
-            if (ingredient.getBestBefore() != null && now.isAfter(ingredient.getBestBefore())) {
+            if (ingredient.getBestBefore() != null && (now.isEqual(ingredient.getBestBefore())
+                    || now.isAfter(ingredient.getBestBefore()))) {
                 recipe.getBestBeforeIngredients().add(ingredient);
             }
             recipe.getIngredients().add(ingredient);
