@@ -1,8 +1,5 @@
 package com.jobhunt.demo.controller;
 
-import static org.junit.Assert.assertEquals;
-
-
 import com.jobhunt.demo.client.RecipeFileClient;
 import com.jobhunt.demo.model.RecipeResponse;
 import com.jobhunt.demo.service.DataService;
@@ -13,6 +10,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import java.util.List;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -51,7 +50,7 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, -30, -30);
         
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 3);
+        Assertions.assertEquals(arrayDeque.size(), 3);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, 0, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 4);
+        Assertions.assertEquals(arrayDeque.size(), 4);
     }
 
     @Test
@@ -73,7 +72,7 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, 1, 1);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 5);
+        Assertions.assertEquals(arrayDeque.size(), 5);
     }
 
     @Test
@@ -85,7 +84,7 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, 1, -1);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 2);
+        Assertions.assertEquals(arrayDeque.size(), 2);
     }
 
     @Test
@@ -95,9 +94,9 @@ public class RecipeControllerTest {
         dataService.createUnitTestFile(fileName, ingredients, -1, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        assertEquals(arrayDeque.size(), 4);
+        Assertions.assertEquals(arrayDeque.size(), 4);
 
         RecipeResponse last = arrayDeque.getLast();
-        assertEquals(last.getTitle(), "Ham and Cheese Toastie");
+        Assertions.assertEquals(last.getTitle(), "Ham and Cheese Toastie");
     }
 }

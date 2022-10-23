@@ -1,8 +1,6 @@
 package com.jobhunt.demo.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 
 import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.Ingredient;
@@ -11,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,7 +54,7 @@ public class RecipeServiceTest {
         ingredientHashMap.put("Ham", ingredient);
 
         Recipe recipe = recipeService.createRecipe(linkedHashMapArrayList, ingredientHashMap);
-        assertEquals(recipe.getBestBeforeIngredients().size(), 1);
+        Assertions.assertEquals(recipe.getBestBeforeIngredients().size(), 1);
 
     }
 }

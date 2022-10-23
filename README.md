@@ -26,3 +26,9 @@ generate the ingredients.json file during startup
 * recipes.json is static data based 
 * ingredients.json is created on-the-fly during server startup with static/dynamic data. Static data for the list of available ingredients and dynamic best-before and use-by dates
 * Ham and Cheese Toastie and Omelette will return valid ingredients, the rest have expired ingredients
+
+## Test using docker
+* Run maven install
+* Run docker build -t recipe .
+* Run docker run -p 8082:8082 recipe
+* Open browser on http://localhost:8082/lunch
