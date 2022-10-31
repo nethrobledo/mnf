@@ -1,6 +1,7 @@
 package com.jobhunt.demo.controller;
 
 import com.jobhunt.demo.client.RecipeFileClient;
+import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.RecipeResponse;
 import com.jobhunt.demo.service.DataService;
 import com.jobhunt.demo.service.FileService;
@@ -21,8 +22,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @Tag("integration")
 @ExtendWith(MockitoExtension.class)
-public class RecipeControllerTest {
 
+public class RecipeControllerTest {
     private RecipeService recipeService;
     private FileService fileService;
     private IngredientService ingredientService;
@@ -40,7 +41,7 @@ public class RecipeControllerTest {
         fileService.setFileName(fileName);
         recipeService = new RecipeService(fileService);
         ingredientService = new IngredientService(fileService);
-        recipeController = new RecipeController(recipeService,ingredientService,fileService);
+        recipeController = new RecipeController(recipeService,ingredientService);
     }
 
     @Test
@@ -86,7 +87,6 @@ public class RecipeControllerTest {
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
         Assertions.assertEquals(arrayDeque.size(), 2);
     }
-
     @Test
     public void testSortLast() {
         List<String> ingredients = new ArrayList<>();
@@ -98,5 +98,19 @@ public class RecipeControllerTest {
 
         RecipeResponse last = arrayDeque.getLast();
         Assertions.assertEquals(last.getTitle(), "Ham and Cheese Toastie");
+    }
+
+    @Test
+    public void testErrorHandling() {
+        FileService fileService = new FileService(recipeFileClient);
+        fileService.setFileName("error.json");
+        RecipeService recipeService = new RecipeService(fileService);
+        IngredientService ingredientService = new IngredientService(fileService);
+        RecipeController recipeController = new RecipeController(recipeService,ingredientService);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            recipeController.getRecipes();
+        });
+
     }
 }

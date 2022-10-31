@@ -3,18 +3,21 @@ package com.jobhunt.demo.controller;
 import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.Ingredient;
 import com.jobhunt.demo.model.RecipeResponse;
-import com.jobhunt.demo.service.FileService;
 import com.jobhunt.demo.service.RecipeService;
 import com.jobhunt.demo.service.IngredientService;
 import java.util.*;
+
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1")
 public class RecipeController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,14 +26,6 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
-    private final FileService fileService;
-
-    @Autowired
-    public RecipeController(RecipeService recipeService, IngredientService ingredientService, FileService fileService) {
-        this.recipeService = recipeService;
-        this.ingredientService = ingredientService;
-        this.fileService = fileService;
-    }
 
     @GetMapping("/lunch")
     @ResponseBody

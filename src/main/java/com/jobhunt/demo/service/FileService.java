@@ -10,9 +10,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import java.util.LinkedHashMap;
+
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -20,23 +21,17 @@ import org.springframework.util.MultiValueMap;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 public class FileService {
-
     @Value("${sample.baseUrl}")
     private String baseUrl;
-
+    @Value("${user.dir}/ingredients.json")
+    private String fileName;
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
     private static final String SAMPLE_URI = "/posts/1";
     private static final ObjectMapper mapper = new ObjectMapper();
-    // TODO:: To be converted to @Value property
-    private String fileName;
-    private final RecipeFileClient recipeFileClient;
 
-    @Autowired
-    public FileService(RecipeFileClient recipeFileClient) {
-        this.recipeFileClient = recipeFileClient;
-    }
+    private final RecipeFileClient recipeFileClient;
 
     // In the future when we want to retrieve file from another site
     public Mono<Post> getRecipesFromSite() {

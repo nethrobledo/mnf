@@ -4,25 +4,21 @@ import com.jobhunt.demo.model.Recipe;
 import com.jobhunt.demo.model.RecipeResponse;
 import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.Ingredient;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class RecipeService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final String RECIPES_ERROR_MESSAGE = "Missing recipes";
     private final FileService fileService;
-
-    @Autowired
-    public RecipeService(FileService fileService) {
-        this.fileService = fileService;
-    }
 
     /**
      * Retrieves available recipes based from ingredients

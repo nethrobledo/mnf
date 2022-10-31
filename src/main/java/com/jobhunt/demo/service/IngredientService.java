@@ -1,9 +1,10 @@
 package com.jobhunt.demo.service;
 
+import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.Ingredient;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,23 +12,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import org.springframework.util.StringUtils;
 
 @Service
+@RequiredArgsConstructor
 public class IngredientService {
-
+    private static final String INGREDIENTS_ERROR_MESSAGE = "Missing ingredients";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final FileService fileService;
-
-    @Autowired
-    public IngredientService(FileService fileService) {
-        this.fileService = fileService;
-
-        if (StringUtils.isEmpty(fileService.getFileName())) {
-            this.fileService.setFileName(System.getProperty("user.dir") + "/ingredients.json");
-        }
-    }
 
     /**
      * Converts json file into bean object
@@ -38,6 +30,11 @@ public class IngredientService {
 
         HashMap<String, Ingredient> resultMap = new HashMap<>();
         ArrayList<LinkedHashMap> ingredients = fileService.getIngredientsFromLocal();
+
+        if (ingredients == null || ingredients.isEmpty()) {
+            logger.error(INGREDIENTS_ERROR_MESSAGE);
+            throw new NotFoundException(INGREDIENTS_ERROR_MESSAGE);
+        }
 
         for (LinkedHashMap ingredientsMap : ingredients) {
             Ingredient ingredient = new Ingredient();

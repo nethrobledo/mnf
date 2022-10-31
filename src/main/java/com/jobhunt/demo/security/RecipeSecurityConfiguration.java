@@ -22,6 +22,6 @@ public class RecipeSecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/ping/**", "/health", "/lunch");
+        return (web) -> web.ignoring().antMatchers("/ping/**", "/health", "/api/v1/lunch");
     }
 }
