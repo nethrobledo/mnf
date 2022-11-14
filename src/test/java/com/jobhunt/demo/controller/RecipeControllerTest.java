@@ -3,10 +3,8 @@ package com.jobhunt.demo.controller;
 import com.jobhunt.demo.client.RecipeFileClient;
 import com.jobhunt.demo.exception.NotFoundException;
 import com.jobhunt.demo.model.RecipeResponse;
-import com.jobhunt.demo.service.DataService;
-import com.jobhunt.demo.service.FileService;
-import com.jobhunt.demo.service.RecipeService;
-import com.jobhunt.demo.service.IngredientService;
+import com.jobhunt.demo.service.*;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -37,8 +35,9 @@ public class RecipeControllerTest {
 
     @BeforeEach
     public void init() {
-        fileService = new FileService(recipeFileClient);
-        fileService.setFileName(fileName);
+        LocalFile localFile = new LocalFile();
+        localFile.setFileName(fileName);
+        fileService = new FileService(new HostedFile(recipeFileClient), localFile);
         recipeService = new RecipeService(fileService);
         ingredientService = new IngredientService(fileService);
         recipeController = new RecipeController(recipeService,ingredientService);
@@ -102,8 +101,10 @@ public class RecipeControllerTest {
 
     @Test
     public void testErrorHandling() {
-        FileService fileService = new FileService(recipeFileClient);
-        fileService.setFileName("error.json");
+        LocalFile localFile = new LocalFile();
+        localFile.setFileName("error.json");
+        fileService = new FileService(new HostedFile(recipeFileClient), localFile);
+
         RecipeService recipeService = new RecipeService(fileService);
         IngredientService ingredientService = new IngredientService(fileService);
         RecipeController recipeController = new RecipeController(recipeService,ingredientService);

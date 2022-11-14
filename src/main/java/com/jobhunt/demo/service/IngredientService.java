@@ -29,7 +29,7 @@ public class IngredientService {
     public HashMap<String, Ingredient> getIngredients() {
 
         HashMap<String, Ingredient> resultMap = new HashMap<>();
-        ArrayList<LinkedHashMap> ingredients = fileService.getIngredientsFromLocal();
+        ArrayList<LinkedHashMap> ingredients = fileService.getIngredients();
 
         if (ingredients == null || ingredients.isEmpty()) {
             logger.error(INGREDIENTS_ERROR_MESSAGE);

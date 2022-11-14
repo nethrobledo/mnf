@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class RecipeService {
         }
 
         List<Recipe> consolidatedRecipeList = new ArrayList<>();
-        ArrayList<LinkedHashMap> recipes = fileService.getRecipesFromLocal();
+        ArrayList<LinkedHashMap> recipes = fileService.getRecipes();
 
         for (LinkedHashMap recipeLinkedHashMap : recipes) {
             Recipe recipe = createRecipe(recipeLinkedHashMap, ingredientHashMap);
@@ -59,19 +60,23 @@ public class RecipeService {
         ArrayList<String> ingredients = (ArrayList) recipeLinkHashMap.get("ingredients");
         LocalDate now = LocalDate.now();
 
+        Predicate<Ingredient> isExpired = ingredient -> ingredient.getUseBy() != null
+                && (now.isEqual(ingredient.getUseBy()) || now.isAfter(ingredient.getUseBy()));
+
+        Predicate<Ingredient> isBestBefore = ingredient -> ingredient.getBestBefore() != null
+                && (now.isEqual(ingredient.getBestBefore()) || now.isAfter(ingredient.getBestBefore()));
+
         for (String strIngredient : ingredients) {
             Ingredient ingredient = ingredientHashMap.get(strIngredient);
             if (ingredient == null) {
                 continue;
             }
 
-            if (ingredient.getUseBy() != null && (now.isEqual(ingredient.getUseBy())
-                    || now.isAfter(ingredient.getUseBy()))) {
+            if (isExpired.test(ingredient)) {
                 recipe.getExpiredIngredients().add(ingredient);
             }
 
-            if (ingredient.getBestBefore() != null && (now.isEqual(ingredient.getBestBefore())
-                    || now.isAfter(ingredient.getBestBefore()))) {
+            if (isBestBefore.test(ingredient)) {
                 recipe.getBestBeforeIngredients().add(ingredient);
             }
             recipe.getIngredients().add(ingredient);
