@@ -27,36 +27,12 @@ public class DataService {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static final List<String> meatIngredients = new ArrayList<>();
-    private static final List<String> saladIngredients = new ArrayList<>();
-    private static final List<String> expiringIn3Days = new ArrayList<>();
-    private static final List<String> expiredYesterday = new ArrayList<>();
+    private static final List<String> meatIngredients = List.of("Bacon");
+    private static final List<String> saladIngredients = List.of("Lettuce", "Tomato", "Cucumber", "Beetroot", "Salad Dressing");
+    private static final List<String> expiringIn3Days = List.of("Ham", "Cheese","Bread", "Butter",
+            "Eggs", "Mushroom", "Milk", "Salt", "Pepper", "Spinach");
+    private static final List<String> expiredYesterday = List.of("Hotdog Bun", "Sausage", "Ketchup", "Mustard");
 
-    static {
-        expiringIn3Days.add("Ham");
-        expiringIn3Days.add("Cheese");
-        expiringIn3Days.add("Bread");
-        expiringIn3Days.add("Butter");
-        expiringIn3Days.add("Eggs");
-        expiringIn3Days.add("Mushroom");
-        expiringIn3Days.add("Milk");
-        expiringIn3Days.add("Salt");
-        expiringIn3Days.add("Pepper");
-        expiringIn3Days.add("Spinach");
-
-        expiredYesterday.add("Hotdog Bun");
-        expiredYesterday.add("Sausage");
-        expiredYesterday.add("Ketchup");
-        expiredYesterday.add("Mustard");
-
-        meatIngredients.add("Bacon");
-        saladIngredients.add("Lettuce");
-        saladIngredients.add("Tomato");
-        saladIngredients.add("Cucumber");
-        saladIngredients.add("Beetroot");
-        saladIngredients.add("Salad Dressing");
-
-    }
     /**
      * Called from the server during startup to create dynamic json file depending on current date
      * during server startup

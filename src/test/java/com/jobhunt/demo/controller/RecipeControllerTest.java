@@ -45,8 +45,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testExpiredBreadOneMonth() {
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Bread");
+        List<String> ingredients = List.of("Bread");
         dataService.createUnitTestFile(fileName, ingredients, -30, -30);
         
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
@@ -55,8 +54,7 @@ public class RecipeControllerTest {
 
     @Test
     public void testLettuceUseByToday() {
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Lettuce");
+        List<String> ingredients = List.of("Lettuce");
         dataService.createUnitTestFile(fileName, ingredients, 0, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
@@ -65,22 +63,16 @@ public class RecipeControllerTest {
 
     @Test
     public void testExpiredByTomorrow() {
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Spinach");
-        ingredients.add("Cheese");
-        ingredients.add("Bread");
+        List<String> ingredients = List.of("Spinach", "Cheese", "Bread");
         dataService.createUnitTestFile(fileName, ingredients, 1, 1);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
-        Assertions.assertEquals(arrayDeque.size(), 5);
+        Assertions.assertEquals(arrayDeque.size(), 2);
     }
 
     @Test
     public void testExpiredYesterday() {
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Spinach");
-        ingredients.add("Cheese");
-        ingredients.add("Bread");
+        List<String> ingredients = List.of("Spinach", "Cheese", "Bread");
         dataService.createUnitTestFile(fileName, ingredients, 1, -1);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
@@ -88,8 +80,7 @@ public class RecipeControllerTest {
     }
     @Test
     public void testSortLast() {
-        List<String> ingredients = new ArrayList<>();
-        ingredients.add("Hotdog Bun");
+        List<String> ingredients = List.of("Hotdog Bun");
         dataService.createUnitTestFile(fileName, ingredients, -1, 0);
 
         ArrayDeque<RecipeResponse> arrayDeque = recipeController.getRecipes();
